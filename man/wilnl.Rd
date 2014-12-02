@@ -1,77 +1,76 @@
 \name{wilnl}
 \alias{wilnl}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Computes the Rank-Based Fit of a Nonlinear Model
 %%  ~~function to do ... ~~
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+
+Computes the rank-based fit of a nonlinear model,  either the Wilcoxon (``WIL'') or HBR fit.
+The Wilcoxon fit is discussed in Chapter 3 of Hettmansperger and McKean (2011)
+and the HBR fit is developed in Abebe and McKean (2014).
+See Section 7.7 of Kloke and McKean (2014) for a discussion of the Rfit version.
 }
 \usage{
 wilnl(x, y, theta0, fmodel, jmodel, numstp = 50, eps = 0.001, wts.type = "WIL", intest = "HL", intercept = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{x}{matrix of predictors
 }
-  \item{y}{
-%%     ~~Describe \code{y} here~~
+  \item{y}{response vector
 }
-  \item{theta0}{
-%%     ~~Describe \code{theta0} here~~
+  \item{theta0}{initial estimate of nonlinear parameters
 }
-  \item{fmodel}{
-%%     ~~Describe \code{fmodel} here~~
+  \item{fmodel}{R function for the model
 }
-  \item{jmodel}{
-%%     ~~Describe \code{jmodel} here~~
+  \item{jmodel}{R function for the Jacobian
 }
-  \item{numstp}{
-%%     ~~Describe \code{numstp} here~~
+  \item{numstp}{maximum number of iterative steps (default is 50)
 }
-  \item{eps}{
-%%     ~~Describe \code{eps} here~~
+  \item{eps}{precision tolerance (default is 0.001)
 }
-  \item{wts.type}{
-%%     ~~Describe \code{wts.type} here~~
+  \item{wts.type}{either "WIL" (default) for the Wilcoxon fit or "HBR" for the HBR fit
 }
-  \item{intest}{
-%%     ~~Describe \code{intest} here~~
+  \item{intest}{either "HL" (default) for Hodges-Lehmann estimator of the intercept or "MED" for
+the median estimator
 }
-  \item{intercept}{
-%%     ~~Describe \code{intercept} here~~
+  \item{intercept}{TRUE if an intercept is in the model else FALSE
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Abebe, A. and McKean, J.W. (2014),
+      Weighted Wilcoxon estimators in nonlinear regression,
+      \emph{Australian and New Zealand Journal of Statistics},
+      55, 401-420.
+
+Hettmansperger, T.P. and McKean J.W. (2011), \emph{Robust Nonparametric Statistical Methods, 2nd ed.}, New York: Chapman-Hall.
+
+Kloke, J. and McKean, J.W. (2014), \emph{Nonparametric statistical methods using R}, Boca Raton, FL: Chapman-Hall.
+
+
 }
-\author{
-%%  ~~who you are~~
+\author{Joe McKean mckean@wmich.edu and John Kloke kloke@biostat.wisc.edu.
 }
 \note{
-%%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+x <- c(4.4, 4.3 ,1.4, 2.2 ,3.1, 4.2,   2, 3.1 ,  4,  1.9,  2.9,  1.4,  3.2 , 2.5,
+   4.4 , 3.6 , 4.3 , 1.5  ,  1 , 4.1 , 1.1 , 1.9 ,   4,  1.1 , 2.2)
+ 
+y <- c( 8.4 ,8.4 ,1.8, 3.2 ,4.3, 7.6, 3.3, 4.8, 7.5 , 2.4 ,   4 , 1.9 ,   6,  3.6,
+   8.5 , 5.3 , 8.8 , 1.4 , 1.8 , 7.1 , 1.4  ,2.9 , 7.3  ,2.6,  2.3)
+
+expmod <- function(x,theta){ exp(x%*%theta) }
+expjake <- function(x,theta){ x*exp(x%*%theta) }
+fitwil <- wilnl(x,y,0.5,expmod,expjake)
 
 ## The function is currently defined as
 function (x, y, theta0, fmodel, jmodel, numstp = 50, eps = 0.001, 
@@ -186,7 +185,4 @@ function (x, y, theta0, fmodel, jmodel, numstp = 50, eps = 0.001,
     res
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+

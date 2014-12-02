@@ -2,9 +2,13 @@
 \alias{print.summary.Rnl}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+wilnl Internal Print Functions
 %%  ~~function to do ... ~~
 }
 \description{
+These functions print the output in a user-friendly manner using the internal R function \code{print}.
+
+
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -12,15 +16,14 @@ print.summary.Rnl(x, digits = max(5, .Options$digits - 2), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{x}{An object to be printed }
 %%     ~~Describe \code{x} here~~
-}
-  \item{digits}{
+  \item{digits}{number of digits to display}
+  \item{\dots}{  additional arguments to be passed to \code{print} }
+
 %%     ~~Describe \code{digits} here~~
-}
-  \item{\dots}{
 %%     ~~Describe \code{\dots} here~~
-}
+
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -35,7 +38,7 @@ print.summary.Rnl(x, digits = max(5, .Options$digits - 2), ...)
 \references{
 %% ~put references to the literature/web site here ~
 }
-\author{
+\author{John Kloke \email{kloke@biostat.wisc.edu}
 %%  ~~who you are~~
 }
 \note{

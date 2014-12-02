@@ -2,9 +2,12 @@
 \alias{wil1stp02}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+Rank-Based Nonlinear Subroutine
 %%  ~~function to do ... ~~
 }
 \description{
+Subroutine that computes the rank-based fit for each iterative
+step in the rank-based nonlinear fit function wilnl.R.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -12,28 +15,28 @@ wil1stp02(x, y, theta0, fmodel, jmodel, wts.type = "WIL", intest = "HL", interce
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{x}{matrix of predictors
 %%     ~~Describe \code{x} here~~
 }
-  \item{y}{
+  \item{y}{response vector
 %%     ~~Describe \code{y} here~~
 }
-  \item{theta0}{
+  \item{theta0}{initial estimate of parameters used at the beginning of the step
 %%     ~~Describe \code{theta0} here~~
 }
-  \item{fmodel}{
+  \item{fmodel}{the function that computes the nonlinear model
 %%     ~~Describe \code{fmodel} here~~
 }
-  \item{jmodel}{
+  \item{jmodel}{the function that computes the jacobian
 %%     ~~Describe \code{jmodel} here~~
 }
-  \item{wts.type}{
+  \item{wts.type}{either ``WIL'' (default) for the Wilcoxon fit of ``HBR'' for the HBR fit.
 %%     ~~Describe \code{wts.type} here~~
 }
-  \item{intest}{
+  \item{intest}{for the estimate of the intercept:  ``HL'' (default) computes the Hodges-Lehmann estimate based on the residuals and  ``MED'' computes  the median of the residuals.
 %%     ~~Describe \code{intest} here~~
 }
-  \item{intercept}{
+  \item{intercept}{TRUE if an intercept is in the nonlinear model else FALSE (default).
 %%     ~~Describe \code{intercept} here~~
 }
 }
@@ -43,14 +46,20 @@ wil1stp02(x, y, theta0, fmodel, jmodel, wts.type = "WIL", intest = "HL", interce
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
+  \item{theta1 }{new estimate of nonlinear parameters}
+  \item{delstar }{theta1 minus theta0}
+  \item{resid0 }{residual at end of step}
+  \item{sse0 }{sum of squared errors for initial fit}
+  \item{sse1 }{sum of squared errors for final (at end of the step) fit}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
 \references{
 %% ~put references to the literature/web site here ~
+Kloke, J. and McKean, J.W. (2014), \emph{Nonparametric statistical methods using R}, Boca Raton, FL: Chapman-Hall.
+
 }
-\author{
+\author{Joe McKean (mckean@wmich.edu) and John Kloke (kloke@biostat.wisc.edu)
 %%  ~~who you are~~
 }
 \note{

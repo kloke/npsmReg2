@@ -1,10 +1,12 @@
 \name{adaptor}
 \alias{adaptor}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Hogg-Type Adaptive Scheme for Linear Models
 %%  ~~function to do ... ~~
 }
 \description{
+Function that computes a Hogg-type adaptive scheme for linear models.
+This scheme is dicussed in detail in Section 7.6 of kloke and McKean (2014).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -12,16 +14,16 @@ adaptor(xmat, y, delta = 0.8, hparm = 2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{xmat}{
+  \item{xmat}{design matrix
 %%     ~~Describe \code{xmat} here~~
 }
-  \item{y}{
+  \item{y}{vector of responses
 %%     ~~Describe \code{y} here~~
 }
-  \item{delta}{
+  \item{delta}{window type parameter used in estimate of scale parameter tau; default is 0.80.
 %%     ~~Describe \code{delta} here~~
 }
-  \item{hparm}{
+  \item{hparm}{Huber's cutoff value for outliers used in estimate of scale parameter tau; default is 2.
 %%     ~~Describe \code{hparm} here~~
 }
 }
@@ -29,6 +31,10 @@ adaptor(xmat, y, delta = 0.8, hparm = 2)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
+      \item{fitwil}{Rank-based fit of linear model using Wilcoxon scores}
+      \item{fitsc}{Rank-based fit of linear model using score function selected by adaptive procedure}
+      \item{fitsc}{Score selected by adaptive procedure.}
+      \item{iscore}{Numerical indicator of score selected by adaptive procedure.}
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
@@ -36,9 +42,11 @@ adaptor(xmat, y, delta = 0.8, hparm = 2)
 %% ...
 }
 \references{
+Kloke, J. and McKean, J.W. (2014), \emph{Nonparametric statistical methods using R}, Boca Raton, FL: Chapman-Hall.
 %% ~put references to the literature/web site here ~
 }
 \author{
+      Joe McKean, mckean@wmich.edu
 %%  ~~who you are~~
 }
 \note{
@@ -51,6 +59,10 @@ adaptor(xmat, y, delta = 0.8, hparm = 2)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+y <- rnorm(40)
+x <- matrix(rnorm(120),ncol=3)
+adaptor(x,y)
+
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.

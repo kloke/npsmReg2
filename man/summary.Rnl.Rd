@@ -1,23 +1,23 @@
 \name{summary.Rnl}
 \alias{summary.Rnl}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Summarize Rank-Based Nonlinear Model Fits }
 %%  ~~function to do ... ~~
-}
+
 \description{
+Provides a summary similar to the rank-based lonear model fit.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-summary.Rnl(object, ...)
+\method{summary}{wilnl}(object,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{
+  \item{object}{an object of class 'wilnl', usually, a result of a call to 'wilnl'}
+\item{\dots}{ additional arguments }
 %%     ~~Describe \code{object} here~~
-}
-  \item{\dots}{
+
 %%     ~~Describe \code{\dots} here~~
-}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -32,9 +32,9 @@ summary.Rnl(object, ...)
 \references{
 %% ~put references to the literature/web site here ~
 }
-\author{
+\author{John Kloke \email{kloke@biostat.wisc.edu}}
 %%  ~~who you are~~
-}
+
 \note{
 %%  ~~further notes~~
 }
@@ -45,6 +45,16 @@ summary.Rnl(object, ...)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+x <- c(4.4, 4.3 ,1.4, 2.2 ,3.1, 4.2,   2, 3.1 ,  4,  1.9,  2.9,  1.4,  3.2 , 2.5,
+   4.4 , 3.6 , 4.3 , 1.5  ,  1 , 4.1 , 1.1 , 1.9 ,   4,  1.1 , 2.2)
+
+y <- c( 8.4 ,8.4 ,1.8, 3.2 ,4.3, 7.6, 3.3, 4.8, 7.5 , 2.4 ,   4 , 1.9 ,   6,  3.6,
+   8.5 , 5.3 , 8.8 , 1.4 , 1.8 , 7.1 , 1.4  ,2.9 , 7.3  ,2.6,  2.3)
+
+expmod <- function(x,theta){ exp(x%*%theta) }
+expjake <- function(x,theta){ x*exp(x%*%theta) }
+fitwil <- wilnl(x,y,0.5,expmod,expjake)
+summary(fitwil)
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.
@@ -58,7 +68,3 @@ function (object, ...)
     res
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
