@@ -1,123 +1,31 @@
 \name{wil1stp02}
 \alias{wil1stp02}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Rank-Based Nonlinear Subroutine
-%%  ~~function to do ... ~~
-}
+\title{ Rank-Based Nonlinear Subroutine }
 \description{
 Subroutine that computes the rank-based fit for each iterative
 step in the rank-based nonlinear fit function wilnl.R.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 wil1stp02(x, y, theta0, fmodel, jmodel, wts.type = "WIL", intest = "HL", intercept = FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{matrix of predictors
-%%     ~~Describe \code{x} here~~
-}
-  \item{y}{response vector
-%%     ~~Describe \code{y} here~~
-}
-  \item{theta0}{initial estimate of parameters used at the beginning of the step
-%%     ~~Describe \code{theta0} here~~
-}
-  \item{fmodel}{the function that computes the nonlinear model
-%%     ~~Describe \code{fmodel} here~~
-}
-  \item{jmodel}{the function that computes the jacobian
-%%     ~~Describe \code{jmodel} here~~
-}
-  \item{wts.type}{either ``WIL'' (default) for the Wilcoxon fit of ``HBR'' for the HBR fit.
-%%     ~~Describe \code{wts.type} here~~
-}
-  \item{intest}{for the estimate of the intercept:  ``HL'' (default) computes the Hodges-Lehmann estimate based on the residuals and  ``MED'' computes  the median of the residuals.
-%%     ~~Describe \code{intest} here~~
-}
-  \item{intercept}{TRUE if an intercept is in the nonlinear model else FALSE (default).
-%%     ~~Describe \code{intercept} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
+  \item{x}{matrix of predictors }
+  \item{y}{response vector }
+  \item{theta0}{initial estimate of parameters used at the beginning of the step }
+  \item{fmodel}{the function that computes the nonlinear model }
+  \item{jmodel}{the function that computes the jacobian }
+  \item{wts.type}{either ``WIL'' (default) for the Wilcoxon fit of ``HBR'' for the HBR fit.  } 
+  \item{intest}{for the estimate of the intercept:  ``HL'' (default) computes the Hodges-Lehmann estimate based on the residuals and  ``MED'' computes  the median of the residuals.  }
+  \item{intercept}{TRUE if an intercept is in the nonlinear model else FALSE (default).  }
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
   \item{theta1 }{new estimate of nonlinear parameters}
   \item{delstar }{theta1 minus theta0}
   \item{resid0 }{residual at end of step}
   \item{sse0 }{sum of squared errors for initial fit}
   \item{sse1 }{sum of squared errors for final (at end of the step) fit}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
 Kloke, J. and McKean, J.W. (2014), \emph{Nonparametric statistical methods using R}, Boca Raton, FL: Chapman-Hall.
-
 }
-\author{Joe McKean (mckean@wmich.edu) and John Kloke (kloke@biostat.wisc.edu)
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, y, theta0, fmodel, jmodel, wts.type = "WIL", intest = "HL", 
-    intercept = FALSE) 
-{
-    xmat = jmodel(x, theta0)
-    yhat0 = fmodel(x, theta0)
-    z = y - yhat0
-    sse0 = sum(z^2)
-    if (intercept) {
-        kold = length(xmat[1, ])
-        xmathold = xmat
-        xmat = xmat[, 2:kold]
-    }
-    if (wts.type == "WIL") {
-        see5 = rfit(z ~ xmat)
-    }
-    if (wts.type == "HBR") {
-        see5 = hbrfit(z ~ xmat)
-    }
-    resid0 = see5$resid
-    if (intest == "HL") {
-        tresid = see5$resid + see5$coef[1]
-        hl = hlest(tresid)
-        resid0 = tresid - hl
-    }
-    if (intest == "MED") {
-        resid0 = see5$resid
-    }
-    if (intercept) {
-        xmat = xmathold
-    }
-    yhat1 = z - resid0
-    delstar = solve(t(xmat) \%*\% xmat) \%*\% t(xmat) \%*\% yhat1
-    theta1 = delstar + theta0
-    yhat1 = fmodel(x, theta1)
-    z1 = y - yhat1
-    sse1 = sum(z1^2)
-    list(theta1 = theta1, delstar = delstar, resid0 = resid0, 
-        sse0 = sse0, sse1 = sse1)
-  }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{Joe McKean (mckean@wmich.edu) and John Kloke (kloke@biostat.wisc.edu) }
