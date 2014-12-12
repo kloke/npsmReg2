@@ -1,12 +1,12 @@
-\name{are2}
-\alias{are2}
+\name{ar2}
+\alias{ar2}
 \docType{data}
 \title{ Generated AR(2) Data Set }
 \description{
 This time series data was genearated by the R command  stream=genarp(20,50,.6,-.3,0).
 It is used in several examples in Section 7.8 of Kloke and McKean (2014).
 }
-\usage{data("are2")}
+\usage{data("ar2")}
 \format{
 Fifty observations on one variable.
 \describe{
